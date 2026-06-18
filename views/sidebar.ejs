@@ -1,0 +1,176 @@
+<%- include('partials/toast.ejs') %>
+
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="/" class="app-brand-link">
+      <span class="app-brand-text demo menu-text fw-bolder ms-4 text-uppercase">Admin Panel</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+
+    <!-- Dashboard — visible to all -->
+    <li class="menu-item active">
+      <a href="/" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Dashboard</div>
+      </a>
+    </li>
+    <br>
+
+    <!-- User Panel — Admin only -->
+    <% if (user && user.role === 'Admin') { %>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div data-i18n="Account Settings">User Panel</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="/add-user" class="menu-link">
+            <div data-i18n="Account">Add User</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/view-user" class="menu-link">
+            <div data-i18n="Notifications">View User</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/trash-user" class="menu-link">
+            <div data-i18n="Notifications">Trash Users</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <% } %>
+
+    <!-- Category Panel — Admin & Manager -->
+    <% if (user && ['Admin', 'Manager'].includes(user.role)) { %>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div data-i18n="Account Settings">Category Panel</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="/category/add" class="menu-link">
+            <div data-i18n="Account">Add Category</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/category/view" class="menu-link">
+            <div data-i18n="Notifications">View Category</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/category/trash" class="menu-link">
+            <div data-i18n="Notifications">Trash Category</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- SubCategory Panel — Admin & Manager -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-list-ul"></i>
+        <div data-i18n="Account Settings">SubCategory Panel</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="/subcategory/add" class="menu-link">
+            <div data-i18n="Account">Add SubCategory</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/subcategory/view" class="menu-link">
+            <div data-i18n="Notifications">View SubCategory</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/subcategory/trash" class="menu-link">
+            <div data-i18n="Notifications">Trash SubCategory</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- ExtraCategory Panel — Admin & Manager -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-detail"></i>
+        <div data-i18n="Account Settings">ExtraCategory Panel</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="/extracategory/add" class="menu-link">
+            <div data-i18n="Account">Add ExtraCategory</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/extracategory/view" class="menu-link">
+            <div data-i18n="Notifications">View ExtraCategory</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="/extracategory/trash" class="menu-link">
+            <div data-i18n="Notifications">Trash ExtraCategory</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Product Panel — Add/Trash only for Admin & Manager; View for all -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="Account Settings">Product Panel</div>
+      </a>
+      <ul class="menu-sub">
+        <% if (['Admin', 'Manager'].includes(user.role)) { %>
+        <li class="menu-item">
+          <a href="/product/add" class="menu-link">
+            <div data-i18n="Account">Add Product</div>
+          </a>
+        </li>
+        <% } %>
+        <li class="menu-item">
+          <a href="/product/view" class="menu-link">
+            <div data-i18n="Notifications">View Product</div>
+          </a>
+        </li>
+        <% if (['Admin', 'Manager'].includes(user.role)) { %>
+        <li class="menu-item">
+          <a href="/product/trash" class="menu-link">
+            <div data-i18n="Notifications">Trash Product</div>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </li>
+    <% } else { %>
+    <!-- Product View only — for User role -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="Account Settings">Products</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="/product/view" class="menu-link">
+            <div data-i18n="Notifications">View Products</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <% } %>
+
+  </ul>
+</aside>
